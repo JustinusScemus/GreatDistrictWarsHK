@@ -4,7 +4,7 @@ class Colour {
   private:
     std::string name;
     int argb; //argb means the colour shown on screen
-};
+} worldc [];
 
 class District {
   //Districts are physical districts that are assigned a colour but changes during the game
