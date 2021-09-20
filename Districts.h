@@ -4,6 +4,8 @@ class Colour {
   private:
     std::string name;
     int argb; //argb means the colour shown on screen
+  public:
+    static int start_world(int worlds);
 } worldc [];
 
 class District {
