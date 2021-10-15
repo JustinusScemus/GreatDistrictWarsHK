@@ -9,6 +9,6 @@ int main() {
     << "3. " << ELECTORAL << " Districts in " << LEGCO_GC_201X << " Colours" << std::endl
     << "4. " << ELECTORAL << " Districts in " << LEGCO_GC_202X << " Colours" << std::endl
     << "5. " << ELECTORAL << " Districts in " << DISTCOUNCIL << " Colours" << std::endl;
-    //Colour::start_world(LEGCO_GC_201X);
+    Colour::start_world(LEGCO_GC_201X);
     return 0;
 }
