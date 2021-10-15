@@ -9,6 +9,9 @@ int main() {
     << "3. " << ELECTORAL << " Districts in " << LEGCO_GC_201X << " Colours" << std::endl
     << "4. " << ELECTORAL << " Districts in " << LEGCO_GC_202X << " Colours" << std::endl
     << "5. " << ELECTORAL << " Districts in " << DISTCOUNCIL << " Colours" << std::endl;
-    Colour::start_world(LEGCO_GC_201X);
+    int districtmodes[5] = {DISTCOUNCIL, DISTCOUNCIL, ELECTORAL, ELECTORAL, ELECTORAL};
+    int colourmodes[5] = {LEGCO_GC_201X, DISTCOUNCIL, LEGCO_GC_201X, LEGCO_GC_202X, DISTCOUNCIL};
+    int modechoice; std::cin >> modechoice;
+    Colour::start_world(colourmodes[modechoice-1]);
     return 0;
 }

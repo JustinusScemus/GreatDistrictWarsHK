@@ -22,12 +22,15 @@ class Colour {
     static int unif();
 
     //Set attributes of a Colour.
-    void setattrib(std::string name, int argb=0xFF000000) {this->name=name; setcolor(argb); std::cout<<"Colour name: "<<name<<" init.";}
+    void setattrib(std::string name, int argb=0xFF000000) {
+      this->name=name; setcolor(argb);
+      std::cout<<"Colour name: "<<name<<" init."<<std::endl; //for debug
+    }
     void setcolor(int argb) {this->argb=argb;}
     uint8_t get_red() const {return this->argb >> 16;}
     uint8_t get_green() const {return this->argb >> 8;}
     uint8_t get_blue() const {return (uint8_t)(this->argb);}
-} *world_cols;
+};
 
 class District {
   //Districts are physical districts that are assigned a colour but changes during the game
@@ -45,5 +48,6 @@ class District {
     District() = default;
     District(int l, int f, Colour& cc, std::string name);
     void addneigh(District*);
+    bool mobilise(District&, int); //return value is whether successful
 };
 #endif //_DISTRICTS_H
