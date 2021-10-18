@@ -1,5 +1,5 @@
 #include "Districts.h"
-//#include <fstream>
+#include <fstream>
 Colour* world_cols;
 int Colour::start_world (int worlds) {
     switch (worlds) {
@@ -35,10 +35,15 @@ int Colour::start_world (int worlds) {
         world_cols[7].setattrib("NT North West");
         world_cols[8].setattrib("NT South West");
         world_cols[9].setattrib("NT North East");
+        return worlds;
         default: return -1;
     }
 }
+bool Colour::operator==(const Colour& other) {
+    return (this->name == other.name);
+}
 
+District** ds; //Array of pointers to districts
 District::District() : landpower(0), fiscalpower(0), currcolor(world_cols[0]) {}
 int District::init_district(int d_count){
     switch (d_count)
@@ -49,25 +54,14 @@ int District::init_district(int d_count){
         break;
     default: return -1;
     }
-    /**
+    
     std::string filename="d_list.txt";
     std::ifstream d_list(filename, std::ios_base::in);// bool pass=false;
-    if (!d_list.good())
-    do {
-        std::cerr << "Required file: "d_list.txt\" not found.\nIf you have put it in another file, type the filename.\nOtherwise just type "con\" to denote its absence.\n";
-        std::cout << "Filename: ";
-        std::cin >> filename;
-        //std::cout << "Yourfilename " << filename;
-        std::ifstream alt_d_list {filename};
-        if (filename=="con" || alt_d_list.good()) {
-            pass = true;
-        }
-    } while (!pass);
-    if (filename=="con"){
+    if (!d_list.good()){
         std::cerr << "Required file: \"d_list.txt\" not found." << std::endl;
         delete[] ds;
-        return -1;
-    } */
+        return -2;
+    } /***/
     int d_iter = 0;
     do {
         std::string temp_name, temp_polygon; int temp_land, temp_fiscal, col_index;
@@ -92,7 +86,10 @@ void District::addneigh(District* d) {
     neighbourcount++;
 }
 
-bool District::united(District ** world) {
-    Colour onecolor = world[0]->currcolor;
-    return true;
+bool District::united() {
+    Colour onecolor = ds[0]->currcolor;
+    for (int i=1; i<333; i++) {
+        if (ds[i]->currcolor!=onecolor) return false;
+    };
+    return true;/***/
 }

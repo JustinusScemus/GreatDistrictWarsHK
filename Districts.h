@@ -27,6 +27,8 @@ class Colour {
       std::cout<<"Colour name: "<<name<<" init."<<std::endl; //for debug
     }
     void setcolor(int argb) {this->argb=argb;}
+    bool operator==(const Colour&);
+    bool operator!=(const Colour& other) {return !(*this==other);}
     uint8_t get_red() const {return this->argb >> 16;}
     uint8_t get_green() const {return this->argb >> 8;}
     uint8_t get_blue() const {return (uint8_t)(this->argb);}
@@ -50,7 +52,7 @@ class District {
     static int init_district(int d_count); //Initialize the "districts" of the game, -1 if unsuccessful
     void addneigh(District*);
     bool mobilise(District&, int); //return value is whether successful
-    static bool united(District **);
+    static bool united();
 };
-District** ds; //Array of pointers to districts
+//
 #endif //_DISTRICTS_H
