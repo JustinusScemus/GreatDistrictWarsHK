@@ -42,12 +42,15 @@ class District {
     struct co_ord{
       int x,y;
     } * polygon;
-    District** neighbours; //Array of pointers to districts
+    District** neighbours; //Array of pointers to neighbouring districts
     int neighbourcount;
   public:
-    District() = default;
+    District();
     District(int l, int f, Colour& cc, std::string name);
+    static int init_district(int d_count); //Initialize the "districts" of the game, -1 if unsuccessful
     void addneigh(District*);
     bool mobilise(District&, int); //return value is whether successful
+    static bool united(District **);
 };
+District** ds; //Array of pointers to districts
 #endif //_DISTRICTS_H
