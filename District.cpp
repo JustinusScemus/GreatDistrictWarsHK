@@ -61,7 +61,11 @@ int District::init_district(int d_count){
         std::cerr << "Required file: \"d_list.txt\" not found." << std::endl;
         delete[] ds;
         return -2;
-    } /***/
+    } /**File format: "Name of district" landpower fiscalpower col_index_201x col_index_202x col_index_distcouncil Nn n n Px,y,x,y,x,y
+    * N denotes neighbours and P denotes the polygon vertices. P ends with a -1 notation.
+    */
+    char mode[6];
+    d_list.getline(mode, 6);
     int d_iter = 0;
     do {
         std::string temp_name, temp_polygon; int temp_land, temp_fiscal, col_index;
