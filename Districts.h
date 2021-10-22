@@ -1,7 +1,7 @@
 //Two types of objects: Districts and Colours
 #ifndef _DISTRICTS_H
 #define _DISTRICTS_H
-#include <Colour.h>
+
 #include <iostream>
 #include <string>
 
@@ -11,7 +11,7 @@
 #define DISTCOUNCIL 18
 #define ELECTORAL 452
 
-
+#include "Colour.h"
 class District {
   //Districts are physical districts that are assigned a colour but changes during the game
   private:
@@ -30,7 +30,7 @@ class District {
     static int init_district(int d_count); //Initialize the "districts" of the game, -1 if unsuccessful
     void addneigh(District*);
     bool mobilise(District&, int); //return value is whether successful
-    static bool united();
+    static bool united(int);
 };
 //
 #endif //_DISTRICTS_H

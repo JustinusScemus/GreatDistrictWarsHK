@@ -1,4 +1,6 @@
 #include "Districts.h"
+#include "Colour.h"
+
 #include <fstream>
 Colour* world_cols;
 int Colour::start_world (int worlds) {
@@ -39,9 +41,21 @@ int Colour::start_world (int worlds) {
         default: return -1;
     }
 }
+int Colour::unif() {
+    return argb;
+}
+void Colour::add_d(District* d) {
+    area.push_back(d);
+}
+void Colour::lose_d(District* d) {
+    area.remove(d);
+}
 bool Colour::operator==(const Colour& other) {
     return (this->name == other.name);
 }
+
+//End of Colour functions
+//Start of District functions
 
 District** ds; //Array of pointers to districts
 District::District() : landpower(0), fiscalpower(0), currcolor(world_cols[0]) {}
@@ -90,10 +104,11 @@ void District::addneigh(District* d) {
     neighbourcount++;
 }
 
-bool District::united() {
+bool District::united(int districts) {
     Colour onecolor = ds[0]->currcolor;
-    for (int i=1; i<333; i++) {
+    for (int i=1; i<districts; i++) {
         if (ds[i]->currcolor!=onecolor) return false;
     };
+    onecolor.unif();
     return true;/***/
 }

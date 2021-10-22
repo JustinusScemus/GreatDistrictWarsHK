@@ -1,17 +1,22 @@
 #ifndef _COLOUR_H
 #define _COLOUR_H
+class District;
+#include <iostream>
 #include <string>
+#include <list>
 class Colour {
   private:
     std::string name;
     int argb; //argb means the colour shown on screen
+    std::list<District*> area;
   public:
     //Initialize the "colours" of the game, -1 if unsuccessful
     static int start_world(int worlds);
 
-    //Announce that a "colour" has "unified" the game world
-    static int unif();
-
+    //Announce that this "colour" has "unified" the game world
+    int unif();
+    void add_d(District *);
+    void lose_d(District *);
     //Set attributes of a Colour.
     void setattrib(std::string name, int argb=0xFF000000) {
       this->name=name; setcolor(argb);
