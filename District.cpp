@@ -93,6 +93,16 @@ landpower(l), fiscalpower(f),
 currcolor(cc), name(name),
 polygon(nullptr), neighbours(nullptr), neighbourcount(0) {}
 
+District* District::Dist_choice(std::string input, int districts) {
+    if (input[0] >= '0' && input[0] <= '9') {
+        int a = std::stoi (input);
+        if (a >= 0 && a < districts) {
+            return ds[a];
+        }
+    }
+    return nullptr;
+}
+
 void District::addneigh(District* d) {
     District** temp = new District*[neighbourcount+1];
     for (int i=0; i < neighbourcount; i++) {

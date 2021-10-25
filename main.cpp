@@ -28,8 +28,20 @@ int main() {
         std::cout << "Make sure the \"d_list.txt\" file is ready and restart the game." << std::endl; std::cin.get();
         return 0;
         default:
-        while (!District::united()) {}
+        std::string d_choice;
+        std::cout << "Choose district code or number (starting from 0)";
+        std::getline(std::cin, d_choice);
+        District* d_this = District::Dist_choice(d_choice, districts); //need more implementation
+        while (d_this && !District::united(districts)) {
+            char movement;
+            switch (movement) {
+                case 'm': case 'M':
+                  int war_power;
+                  //d_this->mobilise(ds[0], war_power);
+                break;
+            }
+        }
         std::cout << "Game over. Hong Kong has been united." << std::endl; std::cin.get();
-    }
+    } //switch (districts)
     return 0;
 }
