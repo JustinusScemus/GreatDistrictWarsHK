@@ -2,6 +2,7 @@
 #include "Colour.h"
 
 #include <fstream>
+#include <cstring>
 Colour* world_cols;
 int Colour::start_world (int worlds) {
     switch (worlds) {
@@ -79,7 +80,22 @@ int District::init_district(int d_count){
     * N denotes neighbours and P denotes the polygon vertices. P ends with a -1 notation.
     */
     char mode[6];
+    char* desiredmode;
+    switch (d_count)
+    {
+    case DISTCOUNCIL:
+        std::strcpy(desiredmode, "DISTC");
+        break;
+    case ELECTORAL:
+        std::strcpy(desiredmode, "ELCTR");
+    default:
+        break;
+    }
+    while (std::strcmp(mode, desiredmode)!=0) 
     d_list.getline(mode, 6);
+
+    std::cout << mode;
+
     int d_iter = 0;
     do {
         std::string temp_name, temp_polygon; int temp_land, temp_fiscal, col_index;
@@ -121,4 +137,20 @@ bool District::united(int districts) {
     };
     onecolor.unif();
     return true;/***/
+}
+
+void District::display(int districts) {
+    switch (districts)
+    {
+    case DISTCOUNCIL:
+        std::cout <<
+        "       ---" /*10 spaces*/ << ds[12]->currcolor.name0() << ds[12]->currcolor.name1()
+        << "-       " /*8 more spaces*/ << std::endl;
+        std::cout << "      /    \\        ";
+        return;
+    
+    default:
+        std::cerr << "District numbers invalid." << std::endl;
+        return;
+    }
 }

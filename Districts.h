@@ -32,6 +32,7 @@ class District {
     void addneigh(District*);
     bool mobilise(District&, int); //return value is whether successful
     static bool united(int);
+    static void display(int);
 };
 //
 #endif //_DISTRICTS_H

@@ -19,20 +19,22 @@ int main() {
         return 0;
     }
     int districts = District::init_district(districtmodes[modechoice-1]);
-    switch (districts) {
-        case -1:
+    if (districts == -1) {
         std::cerr << "Number of districts is wrong." << std::endl;
         std::cout << "Game aborted." << std::endl; std::cin.get();
         return 0;
-        case -2:
+    }
+    if (districts == -2) {
         std::cout << "Make sure the \"d_list.txt\" file is ready and restart the game." << std::endl; std::cin.get();
         return 0;
-        default:
-        std::string d_choice;
-        std::cout << "Choose district code or number (starting from 0)";
-        std::getline(std::cin, d_choice);
-        District* d_this = District::Dist_choice(d_choice, districts); //need more implementation
-        while (d_this && !District::united(districts)) {
+    }
+    
+    std::string d_choice;
+    std::cout << "Choose district code or number (starting from 0)";
+    std::getline(std::cin, d_choice);
+    District* d_this = District::Dist_choice(d_choice, districts); //need more implementation
+    while (d_this && !District::united(districts)) {
+            District::display(districts); //static void District::display(int);
             char movement;
             switch (movement) {
                 case 'm': case 'M':
@@ -40,8 +42,7 @@ int main() {
                   //d_this->mobilise(ds[0], war_power);
                 break;
             }
-        }
-        std::cout << "Game over. Hong Kong has been united." << std::endl; std::cin.get();
-    } //switch (districts)
+    }
+    std::cout << "Game over. Hong Kong has been united." << std::endl; std::cin.get();
     return 0;
 }

@@ -28,5 +28,7 @@ class Colour {
     uint8_t get_red() const {return this->argb >> 16;}
     uint8_t get_green() const {return this->argb >> 8;}
     uint8_t get_blue() const {return (uint8_t)(this->argb);}
+    char name0() const {return name[0];}
+    char name1() const {return name[name.length()-1];}
 };
 #endif
