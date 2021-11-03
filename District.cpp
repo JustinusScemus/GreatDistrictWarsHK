@@ -60,7 +60,7 @@ bool Colour::operator==(const Colour& other) {
 
 District** ds; //Array of pointers to districts
 District::District() : landpower(0), fiscalpower(0), currcolor(world_cols[0]) {}
-int District::init_district(int d_count){
+int District::init_district(int d_count, int col_count){
     switch (d_count)
     {
     case DISTCOUNCIL:
@@ -79,29 +79,45 @@ int District::init_district(int d_count){
     } /**File format: "Name of district" landpower fiscalpower col_index_201x col_index_202x col_index_distcouncil Nn n n Px,y,x,y,x,y
     * N denotes neighbours and P denotes the polygon vertices. P ends with a -1 notation.
     */
-    char mode[6];
-    char* desiredmode;
+    std::string mode;
+    std::string desiredmode;
     switch (d_count)
     {
     case DISTCOUNCIL:
-        std::strcpy(desiredmode, "DISTC");
+        desiredmode = "DISTC";
         break;
     case ELECTORAL:
-        std::strcpy(desiredmode, "ELCTR");
+        desiredmode = "ELCTR";
     default:
         break;
     }
-    while (std::strcmp(mode, desiredmode)!=0) 
-    d_list.getline(mode, 6);
-
-    std::cout << mode;
+    while (desiredmode!=mode) {
+        //std::cout << mode << " " << desiredmode << std::endl; for debug
+        std::getline(d_list, mode);
+    }
+    std::cout << "\nMode: " << mode; //for debug
 
     int d_iter = 0;
     do {
-        std::string temp_name, temp_polygon; int temp_land, temp_fiscal, col_index;
-        //d_list >> temp_name >> temp_land >> temp_fiscal >> col_index >> temp_polygon;
+        std::string temp_name, temp_dist, temp_polygon; int temp_land, temp_fiscal, col_index_10, col_index_20, col_index_dist;
+        d_list >> temp_name >> temp_land >> temp_fiscal >> col_index_10 >> col_index_20 >> col_index_dist >> temp_polygon;
+        std::cout << "Dist: " << temp_name << " has landpower " << temp_land << " and fiscalpower " << temp_fiscal << " is col_index " << col_index_dist << ",";
+        int col_index;
+        switch (col_count)
+        {
+        case LEGCO_GC_201X:
+            col_index = col_index_10;
+            break;
+        case LEGCO_GC_202X:
+            col_index = col_index_20;
+        default:
+            break;
+        }
         ds[d_iter++] = new District(temp_land, temp_fiscal, world_cols[col_index], temp_name);
+        std::cout << "Belongs to " << world_cols[col_index].name0() << ".." << world_cols[col_index].name1() << std::endl;
+        d_list.ignore(100, '\n');
     } while (d_iter<d_count);
+    d_list.close();
     return d_count;
 }
 District::District(int l, int f, Colour& cc, std::string name):
@@ -139,14 +155,51 @@ bool District::united(int districts) {
     return true;/***/
 }
 
+/** For DC districts, Displays in maps width 20, height 15
+ *  For Electral districts, implementation later, maybe prompts for output.
+ */
 void District::display(int districts) {
     switch (districts)
     {
     case DISTCOUNCIL:
+        /**
+         * XXXXXXX---12-XXXXXXX
+         * XXXXXX/XXXXXX\XXXXXX
+         * XXX-11--------13XXXX
+         * XX/XX|XXXXXXX/XXXXXX
+         * X10--09----15--XXXXX 5
+         * XX|X/X|XXX/X|XX\XXXX
+         * X017X16--05-06-07X|X
+         * XXXXXXXXX|X/|X\|XX|X
+         * XXXXXXXXX04X|X08-14X
+         * XXXXXXXXX|XX|XX|XXXX 10
+         * XXXXXXXX(Victoria H)
+         * XXXXXXXXX|XX|XX|XXXX
+         * XXXXXXXXX00-01-02XXX
+         * XXXXXXXXXX\X|X/XXXXX
+         * XXXXXXXXXXX03XXXXXXX
+         */
         std::cout <<
-        "       ---" /*10 spaces*/ << ds[12]->currcolor.name0() << ds[12]->currcolor.name1()
-        << "-       " /*8 more spaces*/ << std::endl;
-        std::cout << "      /    \\        ";
+        "       ---" << ds[12]->currcolor.name0() << ds[12]->currcolor.name1()
+        << "-       " << std::endl;
+        std::cout << "      /      \\      " << std::endl;
+        std::cout << "   -" << ds[11]->currcolor.name0() << ds[11]->currcolor.name1() << "--------"
+        << ds[13]->currcolor.name0() << ds[13]->currcolor.name1() << "    \n";
+        std::cout << "  /  |       /      \n";
+        std::cout << " " << ds[10]->currcolor.name0() << ds[10]->currcolor.name1() << "--" << ds[9]->currcolor.name0()
+        << ds[9]->currcolor.name1() << "----" << ds[15]->currcolor.name0() << ds[15]->currcolor.name1() << "--     \n";
+        std::cout << "  /  |       /      \n";
+        std::cout << ' ' << ds[17]->currcolor.name0() << ds[17]->currcolor.name1() << ds[17]->currcolor.name2()
+        << ' ' << ds[16]->currcolor.name0() << ds[16]->currcolor.name1() << "--" << ds[5]->currcolor.name0()
+        << ds[5]->currcolor.name1() << '-' << ds[6]->currcolor.name0() << ds[6]->currcolor.name1() << '-'
+        << ds[7]->currcolor.name0() << ds[7]->currcolor.name1() << " | \n";
+        std::cout << "         | /| \\|  | \n";
+        std::cout << "         " << ds[4]->currcolor.name0() << ds[4]->currcolor.name1() << " | " << ds[8]->currcolor.name0()
+        << ds[8]->currcolor.name1() << '-' << ds[14]->currcolor.name0() << ds[14]->currcolor.name1() << " \n";
+        std::cout << "         |  |  |    \n        (Victoria H)\n         |  |  |    \n";
+        std::cout << "         " << ds[0]->currcolor.name0() << ds[0]->currcolor.name1() << '-' << ds[1]->currcolor.name0()
+        << ds[1]->currcolor.name1() << '-' << ds[2]->currcolor.name0() << ds[2]->currcolor.name1() << "   \n";
+        std::cout << std::endl;
         return;
     
     default:

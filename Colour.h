@@ -29,6 +29,11 @@ class Colour {
     uint8_t get_green() const {return this->argb >> 8;}
     uint8_t get_blue() const {return (uint8_t)(this->argb);}
     char name0() const {return name[0];}
-    char name1() const {return name[name.length()-1];}
+    char name1() const {
+      char temp = name[name.length()/2]; int i=0;
+      while (temp==' ') temp = name[name.length()/2 + ++i];
+      return temp;
+    }
+    char name2() const {return name[name.length()-1];}
 };
 #endif

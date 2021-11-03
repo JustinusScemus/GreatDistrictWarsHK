@@ -27,12 +27,13 @@ class District {
   public:
     District();
     District(int l, int f, Colour& cc, std::string name);
-    static int init_district(int d_count); //Initialize the "districts" of the game, -1 if unsuccessful
+    static int init_district(int d_count, int col_count); //Initialize the "districts" of the game, -1 if unsuccessful
     static District* Dist_choice(std::string input, int districts);
     void addneigh(District*);
     bool mobilise(District&, int); //return value is whether successful
     static bool united(int);
     static void display(int);
+  friend class Colour;
 };
 //
 #endif //_DISTRICTS_H

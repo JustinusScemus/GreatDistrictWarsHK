@@ -2,7 +2,7 @@
 
 int main() {
     std::cout << "Great District Wars 2021\nby Justin Sham"
-    << std::endl << std::endl <<
+    << std::endl << "Version 0.0" << std::endl <<
     "Please choose mode:" << std::endl
     << "1. " << DISTCOUNCIL << " Districts in " << LEGCO_GC_201X << " Colours" << std::endl
     << "2. " << DISTCOUNCIL << " Districts in " << DISTCOUNCIL << " Colours" << std::endl
@@ -18,7 +18,7 @@ int main() {
         std::cout << "Game aborted." << std::endl; std::cin.get();
         return 0;
     }
-    int districts = District::init_district(districtmodes[modechoice-1]);
+    int districts = District::init_district(districtmodes[modechoice-1], colourmodes[modechoice-1]);
     if (districts == -1) {
         std::cerr << "Number of districts is wrong." << std::endl;
         std::cout << "Game aborted." << std::endl; std::cin.get();
@@ -31,11 +31,11 @@ int main() {
     
     std::string d_choice;
     std::cout << "Choose district code or number (starting from 0)";
-    std::getline(std::cin, d_choice);
+    std::cin >> d_choice;
     District* d_this = District::Dist_choice(d_choice, districts); //need more implementation
     while (d_this && !District::united(districts)) {
             District::display(districts); //static void District::display(int);
-            char movement;
+            char movement; std::cin >> movement;
             switch (movement) {
                 case 'm': case 'M':
                   int war_power;
