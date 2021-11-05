@@ -32,7 +32,9 @@ int main() {
     std::string d_choice;
     std::cout << "Choose district code or number (starting from 0)";
     std::cin >> d_choice;
-    District* d_this = District::Dist_choice(d_choice, districts); //need more implementation
+    District* d_this = District::Dist_choice(d_choice, districts); /**need more implementation, probably replaced by similar
+    method in the Colour class
+    */
     while (d_this && !District::united(districts)) {
             District::display(districts); //static void District::display(int);
             char movement; std::cin >> movement;

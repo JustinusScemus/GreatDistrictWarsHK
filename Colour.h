@@ -15,8 +15,13 @@ class Colour {
 
     //Announce that this "colour" has "unified" the game world
     int unif();
+
+    //The "colour" adds a District
     void add_d(District *);
+
+    //The "colour" loses a District
     void lose_d(District *);
+    
     //Set attributes of a Colour.
     void setattrib(std::string name, int argb=0xFF000000) {
       this->name=name; setcolor(argb);

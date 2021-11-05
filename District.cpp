@@ -2,7 +2,7 @@
 #include "Colour.h"
 
 #include <fstream>
-#include <cstring>
+#include <sstream>
 Colour* world_cols;
 int Colour::start_world (int worlds) {
     switch (worlds) {
@@ -63,8 +63,7 @@ District::District() : landpower(0), fiscalpower(0), currcolor(world_cols[0]) {}
 int District::init_district(int d_count, int col_count){
     switch (d_count)
     {
-    case DISTCOUNCIL:
-    case ELECTORAL:
+    case DISTCOUNCIL: case ELECTORAL:
         ds = new District*[d_count];
         break;
     default: return -1;
@@ -113,8 +112,17 @@ int District::init_district(int d_count, int col_count){
         default:
             break;
         }
-        ds[d_iter++] = new District(temp_land, temp_fiscal, world_cols[col_index], temp_name);
+        ds[d_iter] = new District(temp_land, temp_fiscal, world_cols[col_index], temp_name);
         std::cout << "Belongs to " << world_cols[col_index].name0() << ".." << world_cols[col_index].name1() << std::endl;
+        world_cols[col_index].add_d(ds[d_iter]);
+        std::string temp_neigh = temp_polygon.substr(0, temp_polygon.find('P'));
+        std::istringstream neigh_stream(temp_neigh);
+        std::string parsed_neigh; neigh_stream>>parsed_neigh; //It should contain the first neighbour with and N.
+        std::cout << "Parsed first neighbour: " << parsed_neigh << '\t'; //for debug
+        int neigh_index = std::stoi(parsed_neigh.substr(1));
+        ds[d_iter]->addneigh(ds[neigh_index]);
+        d_iter++;
+        std::cout << std::endl; //for debug
         d_list.ignore(100, '\n');
     } while (d_iter<d_count);
     d_list.close();
