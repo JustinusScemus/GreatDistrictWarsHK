@@ -3,12 +3,12 @@
 class District;
 #include <iostream>
 #include <string>
-#include <list>
+#include <set>
 class Colour {
   private:
     std::string name;
     int argb; //argb means the colour shown on screen
-    std::list<District*> area;
+    std::set<District*> area;
   public:
     //Initialize the "colours" of the game, -1 if unsuccessful
     static int start_world(int worlds);
