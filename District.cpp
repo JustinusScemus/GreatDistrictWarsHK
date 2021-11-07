@@ -46,10 +46,10 @@ int Colour::unif() {
     return argb;
 }
 void Colour::add_d(District* d) {
-    area.push_back(d);
+    area.insert(d);
 }
 void Colour::lose_d(District* d) {
-    area.remove(d);
+    area.erase(d);
 }
 bool Colour::operator==(const Colour& other) {
     return (this->name == other.name);
@@ -153,14 +153,15 @@ District* District::Dist_choice(std::string input, int districts) {
 }
 
 void District::addneigh(District* d) {
-    District** temp = new District*[neighbourcount+1];
+    neighbours.insert(d);
+    /**District** temp = new District*[neighbourcount+1];
     for (int i=0; i < neighbourcount; i++) {
         temp[i] = neighbours[i];
     }
     temp[neighbourcount] = d;
     delete [] neighbours;
     neighbours = temp;
-    neighbourcount++;
+    neighbourcount++;*/
 }
 
 bool District::united(int districts) {
