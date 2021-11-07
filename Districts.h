@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <string>
+#include <unordered_set>
 
 //Number of LegCo Districts in Geographical Constituencies prior to 2020
 #define LEGCO_GC_201X 5
@@ -22,7 +23,7 @@ class District {
     struct co_ord{
       int x,y;
     } * polygon;
-    District** neighbours; //Array of pointers to neighbouring districts
+    std::unordered_set<District*> neighbours; //Array of pointers to neighbouring districts
     int neighbourcount;
   public:
     District();

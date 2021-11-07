@@ -46,10 +46,10 @@ int Colour::unif() {
     return argb;
 }
 void Colour::add_d(District* d) {
-    area.push_back(d);
+    area.insert(d);
 }
 void Colour::lose_d(District* d) {
-    area.remove(d);
+    area.erase(d);
 }
 bool Colour::operator==(const Colour& other) {
     return (this->name == other.name);
@@ -117,10 +117,19 @@ int District::init_district(int d_count, int col_count){
         world_cols[col_index].add_d(ds[d_iter]);
         std::string temp_neigh = temp_polygon.substr(0, temp_polygon.find('P'));
         std::istringstream neigh_stream(temp_neigh);
+        //It is decided that only the District pointer with the higher index would initiate the adding of the lower neighbour
+        //dlist.txt should be changed accordingly
         std::string parsed_neigh; neigh_stream>>parsed_neigh; //It should contain the first neighbour with and N.
         std::cout << "Parsed first neighbour: " << parsed_neigh << '\t'; //for debug
         int neigh_index = std::stoi(parsed_neigh.substr(1));
         ds[d_iter]->addneigh(ds[neigh_index]);
+        ds[neigh_index]->addneigh(ds[d_iter]);
+        while (neigh_stream >> parsed_neigh) {
+            std::cout << "Parsed neighbour: " << parsed_neigh << '\t'; //for debug
+            neigh_index = std::stoi(parsed_neigh);
+            ds[d_iter]->addneigh(ds[neigh_index]);
+            ds[neigh_index]->addneigh(ds[d_iter]);
+        }
         d_iter++;
         std::cout << std::endl; //for debug
         d_list.ignore(100, '\n');
@@ -144,14 +153,15 @@ District* District::Dist_choice(std::string input, int districts) {
 }
 
 void District::addneigh(District* d) {
-    District** temp = new District*[neighbourcount+1];
+    neighbours.insert(d);
+    /**District** temp = new District*[neighbourcount+1];
     for (int i=0; i < neighbourcount; i++) {
         temp[i] = neighbours[i];
     }
     temp[neighbourcount] = d;
     delete [] neighbours;
     neighbours = temp;
-    neighbourcount++;
+    neighbourcount++;*/
 }
 
 bool District::united(int districts) {
