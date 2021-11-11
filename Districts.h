@@ -1,8 +1,10 @@
 //Two types of objects: Districts and Colours
 #ifndef _DISTRICTS_H
 #define _DISTRICTS_H
+
 #include <iostream>
 #include <string>
+#include <unordered_set>
 
 //Number of LegCo Districts in Geographical Constituencies prior to 2020
 #define LEGCO_GC_201X 5
@@ -10,24 +12,29 @@
 #define DISTCOUNCIL 18
 #define ELECTORAL 452
 
-class Colour {
-  private:
-    std::string name;
-    int argb; //argb means the colour shown on screen
-  public:
-    static int start_world(int worlds); //initialize the "colours" of the game, -1 if unsuccessful
-    void setattrib(std::string name, int argb=0xFF000000) {this->name=name; setcolor(argb); std::cout<<"Colour name: "<<name<<" init.";}
-    void setcolor(int argb) {this->argb=argb;}
-    uint8_t get_red() {return this->argb >> 16;}
-    uint8_t get_green() {return this->argb >> 8;}
-    uint8_t get_blue() {return (uint8_t)(this->argb);}
-} *worldc;
-
+#include "Colour.h"
 class District {
   //Districts are physical districts that are assigned a colour but changes during the game
   private:
     int landpower; //Islands is assigned to be largest while Y.T.M. is assigned to be smallest
     int fiscalpower; //C&W assigned to be largest while Islands assigned to be smallest
+    std::string name;
     Colour& currcolor;
+    struct co_ord{
+      int x,y;
+    } * polygon;
+    std::unordered_set<District*> neighbours; //Array of pointers to neighbouring districts
+    int neighbourcount;
+  public:
+    District();
+    District(int l, int f, Colour& cc, std::string name);
+    static int init_district(int d_count, int col_count); //Initialize the "districts" of the game, -1 if unsuccessful
+    static District* Dist_choice(std::string input, int districts);
+    void addneigh(District*); //attaching another district as a neighbour, and stays during the game
+    bool mobilise(District&, int); //return value is whether successful
+    static bool united(int);
+    static void display(int);
+  friend class Colour;
 };
+//
 #endif //_DISTRICTS_H
