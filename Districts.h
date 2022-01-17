@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <string>
+#include <unordered_set>
 
 //Number of LegCo Districts in Geographical Constituencies prior to 2020
 #define LEGCO_GC_201X 5
@@ -17,23 +18,24 @@ class District {
   private:
     int landpower; //Islands is assigned to be largest while Y.T.M. is assigned to be smallest
     int fiscalpower; //C&W assigned to be largest while Islands assigned to be smallest
+    unsigned int currpower;
     std::string name;
-    Colour& currcolor;
+    Colour* currcolor;
     struct co_ord{
       int x,y;
     } * polygon;
-    District** neighbours; //Array of pointers to neighbouring districts
+    std::unordered_set<District*> neighbours; //Array of pointers to neighbouring districts
     int neighbourcount;
   public:
     District();
-    District(int l, int f, Colour& cc, std::string name);
-    static int init_district(int d_count, int col_count); //Initialize the "districts" of the game, -1 if unsuccessful
-    static District* Dist_choice(std::string input, int districts);
+    District(int l, int f, Colour* cc, std::string name);
+    static int init_district(District**, Colour*, int d_count, int col_count); //Initialize the "districts" of the game, -1 if unsuccessful
+    static District* Dist_choice(District**, std::string input, int districts);
     void addneigh(District*); //attaching another district as a neighbour, and stays during the game
     bool mobilise(District&, int); //return value is whether successful
-    static bool united(int);
-    static void display(int);
+    static bool united(District**, int);
+    static void display(District**, int);
   friend class Colour;
 };
-//
+
 #endif //_DISTRICTS_H
