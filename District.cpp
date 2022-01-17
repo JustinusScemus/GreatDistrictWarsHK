@@ -89,11 +89,8 @@ int District::init_district(District** ds, Colour* cs, int d_count, int col_coun
         std::cerr << "Required file: \"d_list.txt\" not found." << std::endl;
         delete[] ds;
         return -2;
-    } /**File format: "Name of district" landpower fiscalpower col_index_201x col_index_202x col_index_distcouncil Nn n n Px,y,x,y,x,y
-    * N denotes neighbours and P denotes the polygon vertices. P ends with a -1 notation.
-    */
-    std::string mode;
-    std::string desiredmode;
+    }
+    std::string mode, desiredmode;
     switch (d_count)
     {
     case DISTCOUNCIL:
@@ -108,13 +105,12 @@ int District::init_district(District** ds, Colour* cs, int d_count, int col_coun
         //std::cout << mode << " " << desiredmode << std::endl; for debug
         std::getline(d_list, mode);
     }
-     //std::cout << "\nMode: " << mode;for debug
-
     int d_iter = 0;
     do {
         std::string temp_name, temp_dist, temp_polygon; int temp_land, temp_fiscal, col_index_10, col_index_20, col_index_dist;
-        d_list >> temp_name >> temp_land >> temp_fiscal >> col_index_10 >> col_index_20 >> col_index_dist >> temp_polygon;
-        std::cout << "Dist: " << temp_name << " has landpower " << temp_land << " and fiscalpower " << temp_fiscal << " is col_index " << col_index_dist << ",";
+        d_list >> temp_name >> temp_land >> temp_fiscal >> col_index_10 >> col_index_20 >> col_index_dist;
+        getline(d_list, temp_polygon);
+        std::cout << "Dist: " << temp_name << " has landpower " << temp_land << " and fiscalpower " << temp_fiscal << ", ";
         int col_index;
         switch (col_count)
         {
@@ -123,36 +119,45 @@ int District::init_district(District** ds, Colour* cs, int d_count, int col_coun
             break;
         case LEGCO_GC_202X:
             col_index = col_index_20;
+            break;
+        case DISTCOUNCIL:
+            col_index = col_index_dist;
+            break;
         default:
             break;
         }
         ds[d_iter] = new District(temp_land, temp_fiscal, &cs[col_index], temp_name);
-        std::cout << "Belongs to " << cs[col_index].name0() << '.' << cs[col_index].name1() << '.' << cs[col_index].name2() << std::endl;
+        std::cout << "Belongs to " << cs[col_index].name0() << '.' << cs[col_index].name1() << '.' << cs[col_index].name2() << ' ' << col_index << std::endl;
         cs[col_index].add_d(ds[d_iter]);
-        std::string temp_neigh = temp_polygon.substr(0, temp_polygon.find('P'));
+        std::string temp_neigh = temp_polygon.substr(0, temp_polygon.find('P') - 1);
         if (!temp_neigh.empty()) {
             std::istringstream neigh_stream(temp_neigh);
             //It is decided that only the District pointer with the higher index would initiate the adding of the lower neighbour
             //If all the neighbours have higher index than itself, then "this" district would temporarily be isolated.
-            //dlist.txt should be changed accordingly
-            std::string parsed_neigh; neigh_stream>>parsed_neigh; //It should contain the first neighbour with and N.
+            std::string parsed_neigh; //parsed_neigh may be negative, such that relative referencing can be made.
+            neigh_stream>>parsed_neigh; //It should contain the first neighbour with the prefix N.
             std::cout << "Parsed first neighbour: " << parsed_neigh << '\t'; //for debug
             int neigh_index = std::stoi(parsed_neigh.substr(1));
+            if (neigh_index < 0) neigh_index = d_iter + neigh_index;
             ds[d_iter]->addneigh(ds[neigh_index]);
             ds[neigh_index]->addneigh(ds[d_iter]);
             while (!neigh_stream.eof()) {
                 neigh_stream >> parsed_neigh;
                 std::cout << "Parsed neighbour: " << parsed_neigh << '\t'; //for debug
                 neigh_index = std::stoi(parsed_neigh);
+                if (neigh_index < 0) neigh_index = d_iter + neigh_index;
                 ds[d_iter]->addneigh(ds[neigh_index]);
                 ds[neigh_index]->addneigh(ds[d_iter]);
             }
         }//if temp_neigh contains things
         d_iter++;
         std::cout << std::endl; //for debug
-        d_list.ignore(100, '\n');
-    } while (d_iter<d_count);
+    } while (d_iter<d_count && !d_list.eof());
     d_list.close();
+    if (d_iter<d_count) {
+        delete[] ds;
+        return -1;
+    }
     return d_count;
 }
 District::District(int l, int f, Colour* cc, std::string name):

@@ -1,7 +1,9 @@
 GDW2021JUSTINSHAMHONGKONG
+File format: "Name of district" landpower fiscalpower col_index_201x col_index_202x col_index_distcouncil Nn n n Px,y,x,y,x,y
+N denotes neighbours and P denotes the polygon vertices.
 DISTC
-C&W 20 100 0 1 0 P10 10
-WC  10 90 0 0 1 N0 P
+C&W 20 100 0 1 0 P10,10
+WC  10 90 0 0 1 N0 P12,10
 Eas 30 80 0 0 2 N1
 Sou 20 60 0 1 3 N0 1 2
 YTM 10 60 1 3 4 N0
@@ -9,7 +11,7 @@ SSP 20 50 1 3 5 N4
 KoC 30 40 1 4 6 N1 4 5
 WTS 20 50 2 4 7 N6
 KTo 30 60 2 2 8 N2 6 7
-TsW 40 50 3 8 9 P5 5
+TsW 40 50 3 8 9 P5,5
 TM  70 40 3 7 10 N9
 YL  70 30 3 6 11 N9 10
 Nor 70 30 4 6 12 N11
@@ -19,3 +21,8 @@ ST  60 50 4 5 15 N5 6 7 9 13 14
 KTs 30 40 3 8 16 N5 9
 Isl 80 10 3 1 17 N9 10
 ELCTR
+A01_ChungWan 2 50 0 1 0 P1,1
+A02_MidLevelsE 1 30 0 1 0 N0 P1,1
+A03_CastleRd 1 20 0 1 0 N1
+A04_Peak 4 20 0 1 0 N0 1 2 P
+A05_University 2 30 0 1 0 N-1 -2 P
