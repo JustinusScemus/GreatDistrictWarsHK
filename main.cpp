@@ -1,9 +1,13 @@
 #include "Districts.h" //<iostream> included there
+
+//Version of the game.
+#define GAME_VERSION "0.0.2022.1a1"
+
 int main() {
     Colour* world_cols;
     District** ds;
     std::cout << "Great District Wars 2021\nby Justin Sham"
-    << std::endl << "Version 0.0" << std::endl <<
+    << std::endl << "Version " << GAME_VERSION << std::endl <<
     "Please choose mode:" << std::endl
     << "1. " << DISTCOUNCIL << " Districts in " << LEGCO_GC_201X << " Colours" << std::endl
     << "2. " << DISTCOUNCIL << " Districts in " << DISTCOUNCIL << " Colours" << std::endl
