@@ -163,7 +163,7 @@ int District::init_district(District** ds, Colour* cs, int d_count, int col_coun
 District::District(int l, int f, Colour* cc, std::string name):
 landpower(l), fiscalpower(f),
 currcolor(cc), name(name),
-polygon(nullptr), neighbourcount(0) {}
+polygon(nullptr)/**, neighbourcount(0)*/ {}
 
 District* District::Dist_choice(District** ds, std::string input, int districts) {
     if (input[0] >= '0' && input[0] <= '9') {
@@ -177,15 +177,7 @@ District* District::Dist_choice(District** ds, std::string input, int districts)
 
 void District::addneigh(District* d) {
     neighbours.insert(d);
-    std::cout << ' ' << this->name << " neighs " << d->name << ';';
-    /**District** temp = new District*[neighbourcount+1];
-    for (int i=0; i < neighbourcount; i++) {
-        temp[i] = neighbours[i];
-    }
-    temp[neighbourcount] = d;
-    delete [] neighbours;
-    neighbours = temp;
-    neighbourcount++;*/
+    std::cout << ' ' << this->name << " neighs " << d->name << ';'; //for debug
 }
 
 bool District::mobilise(District& d, int warpower) {

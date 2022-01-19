@@ -25,7 +25,7 @@ class District {
       int x,y;
     } * polygon;
     std::unordered_set<District*> neighbours; //Array of pointers to neighbouring districts
-    int neighbourcount;
+    //int neighbourcount;
   public:
     District();
     District(int l, int f, Colour* cc, std::string name);
