@@ -1,7 +1,7 @@
 #include "Districts.h" //<iostream> included there
 
 //Version of the game.
-#define GAME_VERSION "0.0.2022.1a2"
+#define GAME_VERSION "0.0.2022.1a4"
 
 int main() {
     Colour* world_cols;
@@ -46,6 +46,7 @@ int main() {
             District* d_this = District::Dist_choice(ds, d_choice, districts); /**need more implementation, probably replaced by similar
             method in the Colour class
             */
+            std::cout << "Choose the type of movement:";
             char movement; std::cin >> movement;
             switch (movement) {
                 case 'm': case 'M':

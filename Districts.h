@@ -29,7 +29,7 @@ class District {
   public:
     District();
     District(int l, int f, Colour* cc, std::string name);
-    static int init_district(District**, Colour*, int d_count, int col_count); //Initialize the "districts" of the game, -1 if unsuccessful
+    static int init_district(District**&, Colour*, int d_count, int col_count); //Initialize the "districts" of the game, -1 if unsuccessful
     static District* Dist_choice(District**, std::string input, int districts);
     void addneigh(District*); //attaching another district as a neighbour, and stays during the game
     bool mobilise(District&, int); //return value is whether successful

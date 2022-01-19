@@ -74,7 +74,7 @@ bool Colour::alive() {
 //District** ds; Array of pointers to districts
 
 District::District() : landpower(0), fiscalpower(0), currcolor(nullptr) {}
-int District::init_district(District** ds, Colour* cs, int d_count, int col_count){
+int District::init_district(District**& ds, Colour* cs, int d_count, int col_count){
     switch (d_count)
     {
     case DISTCOUNCIL: case ELECTORAL:
