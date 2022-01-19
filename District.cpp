@@ -74,7 +74,7 @@ bool Colour::alive() {
 //District** ds; Array of pointers to districts
 
 District::District() : landpower(0), fiscalpower(0), currcolor(nullptr) {}
-int District::init_district(District**& ds, Colour* cs, int d_count, int col_count){
+int District::init_district(District**& ds, Colour*& cs, int d_count, int col_count){
     switch (d_count)
     {
     case DISTCOUNCIL: case ELECTORAL:
@@ -197,9 +197,10 @@ bool District::united(District** ds, int districts) {
 }
 
 /** For DC districts, Displays in maps width 20, height 15
- *  For Electral districts, implementation later, maybe prompts for output.
+ *  For Electral districts, implementation later, maybe prompts for input.
  */
 void District::display(District** ds, int districts) {
+    std::string input;
     switch (districts)
     {
     case DISTCOUNCIL:
@@ -222,8 +223,8 @@ void District::display(District** ds, int districts) {
          */
         std::cout <<
         "       ---" << ds[12]->currcolor->name0() << ds[12]->currcolor->name1()
-        << "-       " << std::endl;
-        std::cout << "      /      \\      " << std::endl;
+        << "-       \n";
+        std::cout << "      /      \\      \n";
         std::cout << "   -" << ds[11]->currcolor->name0() << ds[11]->currcolor->name1() << "--------"
         << ds[13]->currcolor->name0() << ds[13]->currcolor->name1() << "    \n";
         std::cout << "  /  |       /      \n";
@@ -240,7 +241,6 @@ void District::display(District** ds, int districts) {
         std::cout << "         |  |  |    \n        (Victoria H)\n         |  |  |    \n";
         std::cout << "         " << ds[0]->currcolor->name0() << ds[0]->currcolor->name1() << '-' << ds[1]->currcolor->name0()
         << ds[1]->currcolor->name1() << '-' << ds[2]->currcolor->name0() << ds[2]->currcolor->name1() << "   \n";
-        std::cout << std::endl;
         std::cout << "          \\ | /     \n";
         std::cout << "           " << ds[3]->currcolor->name0() << ds[3]->currcolor->name1() << "       \n";
         return;
