@@ -150,6 +150,7 @@ int District::init_district(District** ds, Colour* cs, int d_count, int col_coun
                 ds[neigh_index]->addneigh(ds[d_iter]);
             }
         }//if temp_neigh contains things
+        //TODO: Storing of polygon
         d_iter++;
         std::cout << std::endl; //for debug
     } while (d_iter<d_count && !d_list.eof());
