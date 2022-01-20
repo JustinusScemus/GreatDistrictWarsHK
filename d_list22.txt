@@ -37,15 +37,37 @@ A13_TungWah    1 10 0 1 0 N0 1 2 4 11
 A14_CentreSt   1 10 0 1 0 N4 -1 -3
 A15_WaterSt    1 10 0 1 0 N4 8 9 -4 -1
 B01_Hennessy   1 15 0 0 1
-B02_
-B03_
-B04_
-B05_
-B06_
-B07_
-B08_
-B09_
-B10_
-B11_
-B12_
-B13_
+B02_OiKwan     1 30 0 0 1
+B03_CanalRoad  1 20 0 0 1
+B04_C.wayBay   1 40 0 0 1
+B05_Vic.Park   1 20 0 0 1
+B06_TinHau     1 20 0 0 1
+B07_TaiHang    1 20 0 0 1
+B08_J.'sL.out  3 20 0 0 1
+B09_Broadwood  1 20 0 0 1
+B10_HappyVall. 1 30 0 0 1
+B11_StubbsRoad 4 20 0 0 1
+B12_Southorn   1 30 0 0 1
+B13_TaiFatHau  1 30 0 0 1
+C01_TaiKooSh.W 1 30 0 0 2
+C02_TaiKooSh.E 1
+C03_LeiKingWan 1
+C04_SaiWanHo   1
+C05_AldrichBay 1
+C06_Shaukeiwan 1
+C07_AKungNgam  2
+C08_HengFChuen 1
+C09_TsuiWan    1
+C10_YanLam     1
+C11_SiuSaiWan  1
+C12_KingYee    1
+C13_WanTsui    3
+C14_FeiTsui    3
+C15_MountParkr 4
+C16_BraemarHil 3
+C17_FortrssHil 1
+C18_CityGarden 1
+C19_
+C20_
+C21_
+C22_
