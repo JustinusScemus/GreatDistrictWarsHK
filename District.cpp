@@ -140,14 +140,12 @@ int District::init_district(District**& ds, Colour*& cs, int d_count, int col_co
             int neigh_index = std::stoi(parsed_neigh.substr(1));
             if (neigh_index < 0) neigh_index = d_iter + neigh_index;
             ds[d_iter]->addneigh(ds[neigh_index]);
-            ds[neigh_index]->addneigh(ds[d_iter]);
             while (!neigh_stream.eof()) {
                 neigh_stream >> parsed_neigh;
                 std::cout << "Parsed neighbour: " << parsed_neigh << '\t'; //for debug
                 neigh_index = std::stoi(parsed_neigh);
                 if (neigh_index < 0) neigh_index = d_iter + neigh_index;
                 ds[d_iter]->addneigh(ds[neigh_index]);
-                ds[neigh_index]->addneigh(ds[d_iter]);
             }
         }//if temp_neigh contains things
         //TODO: Storing of polygon
@@ -177,8 +175,10 @@ District* District::Dist_choice(District** ds, std::string input, int districts)
 }
 
 void District::addneigh(District* d) {
+    //It should be bidirectional
     neighbours.insert(d);
-    std::cout << ' ' << this->name << " neighs " << d->name << ';'; //for debug
+    d->neighbours.insert(this);
+    std::cout << ' ' << this->name << " neighs " << d->name << "bidirec"; //for debug
 }
 
 bool District::mobilise(District& d, int warpower) {

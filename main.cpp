@@ -1,7 +1,7 @@
 #include "Districts.h" //<iostream> included there
 
 //Version of the game.
-#define GAME_VERSION "0.0.2022.1a6"
+#define GAME_VERSION "0.0.2022.1a7"
 
 int main() {
     Colour* world_cols;
