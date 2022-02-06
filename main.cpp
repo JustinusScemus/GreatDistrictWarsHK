@@ -1,7 +1,7 @@
 #include "Districts.h" //<iostream> included there
 
 //Version of the game.
-#define GAME_VERSION "0.0.2022.1a7"
+#define GAME_VERSION "0.0.2022.2"
 
 int main() {
     Colour* world_cols;
@@ -39,21 +39,26 @@ int main() {
     std::cin >> c_choice;
     Colour* c_this = Colour::choice(world_cols, c_choice, worlds); 
     while (c_this->alive() && !District::united(ds, districts)) {
-            District::display(ds, districts); //static void District::display(int);
+            District::display(ds, districts); //static void District::display(District**, int);
+            int day = 0;
             std::string d_choice;
-            std::cout << "Choose district code or number (starting from 0)";
+            std::cout << "Today is day " << day << ". Choose district code or number (starting from 0)";
             std::cin >> d_choice;
             District* d_this = District::Dist_choice(ds, d_choice, districts); /**need more implementation, probably replaced by similar
             method in the Colour class
             */
             std::cout << "Choose the type of movement:";
-            char movement; std::cin >> movement;
+            char movement;
+            do {
+            std::cin >> movement;
             switch (movement) {
                 case 'm': case 'M':
                   int war_power;
                   d_this->mobilise(*ds[0], war_power);
                 break;
             }
+            } while (movement != 'p' && movement != 'P');
+            
     }
     std::cout << "Game over. Hong Kong has been united." << std::endl; std::cin.get();
     return 0;

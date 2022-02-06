@@ -110,6 +110,9 @@ int District::init_district(District**& ds, Colour*& cs, int d_count, int col_co
         std::string temp_name, temp_dist, temp_polygon; int temp_land, temp_fiscal, col_index_10, col_index_20, col_index_dist;
         d_list >> temp_name >> temp_land >> temp_fiscal >> col_index_10 >> col_index_20 >> col_index_dist;
         getline(d_list, temp_polygon);
+        if (temp_name[0] == '#') {
+            std::cout << "Comment\n"; continue;
+        }
         std::cout << "Dist: " << temp_name << " has landpower " << temp_land << " and fiscalpower " << temp_fiscal << ", ";
         int col_index;
         switch (col_count)
@@ -197,7 +200,7 @@ bool District::united(District** ds, int districts) {
 }
 
 /** For DC districts, Displays in maps width 20, height 15
- *  For Electral districts, implementation later, maybe prompts for input.
+ *  For Electral districts, prompts for input, display maps with width 40, height 15, and exits only with "exit".
  */
 void District::display(District** ds, int districts) {
     std::string input;
@@ -244,7 +247,11 @@ void District::display(District** ds, int districts) {
         std::cout << "          \\ | /     \n";
         std::cout << "           " << ds[3]->currcolor->name0() << ds[3]->currcolor->name1() << "       \n";
         return;
-    
+    case ELECTORAL:
+        do {
+            getline(std::cin, input);
+        } while (input!="exit");
+        return;
     default:
         std::cerr << "District numbers invalid." << std::endl;
         return;
