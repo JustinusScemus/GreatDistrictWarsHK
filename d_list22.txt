@@ -36,19 +36,19 @@ A12_SheungWan  1 10 0 1 0 N0 -1
 A13_TungWah    1 10 0 1 0 N0 1 2 4 11
 A14_CentreSt   1 10 0 1 0 N4 -1 -3
 A15_WaterSt    1 10 0 1 0 N4 8 9 -4 -1
-B01_Hennessy   1 15 0 0 1
-B02_OiKwan     1 30 0 0 1
-B03_CanalRoad  1 20 0 0 1
-B04_C.wayBay   1 40 0 0 1
-B05_Vic.Park   1 20 0 0 1
-B06_TinHau     1 20 0 0 1
-B07_TaiHang    1 20 0 0 1
-B08_J.'sL.out  3 20 0 0 1
-B09_Broadwood  1 20 0 0 1
-B10_HappyVall. 1 30 0 0 1
-B11_StubbsRoad 4 20 0 0 1
-B12_Southorn   1 30 0 0 1
-B13_TaiFatHau  1 30 0 0 1
+B01_Hennessy   1 15 0 0 1 P
+B02_OiKwan     1 30 0 0 1 N-1
+B03_CanalRoad  1 20 0 0 1 N-1
+B04_C.wayBay   1 40 0 0 1 N-1
+B05_Vic.Park   1 20 0 0 1 N-1 -2
+B06_TinHau     1 20 0 0 1 N-1
+B07_TaiHang    1 20 0 0 1 N-1 -2 -3
+B08_J.'sL.out  3 20 0 0 1 N-1
+B09_Broadwood  1 20 0 0 1 N-6 -5 -2 -1
+B10_HappyVall. 1 30 0 0 1 N-8 -7 -1
+B11_StubbsRoad 4 20 0 0 1 N3 -10 -9 -3 -2 -1
+B12_Southorn   1 30 0 0 1 N3 -11 -1
+B13_TaiFatHau  1 30 0 0 1 N0 -1
 C01_TaiKooSh.W 1 30 0 0 2
 C02_TaiKooSh.E 1 20 0 0 2
 C03_LeiKingWan 1 20 0 0 2
@@ -101,10 +101,21 @@ D14_ShekYue    1
 D15_WongChukH  4
 D16_BaysArea   6
 D17_StanleySO  10
+#Islands
+T01_Lantau      60 3 3 1 17 N
+T02_Mun_Yat     3 10 3 1 17 N-1
+T03_YatTung_N   2 10 3 1 17 N-1 -2
+T04_TungChung_S 4
+T05_TungChung_C 5
+T06_TungChung_N 10 30 3 1 17 N-5 -2 -1
+T07_Discvry_Bay 7
+T08_PengCh&HLCh 5
+T09_Lamma&PoToi 5
+T10_CheungChau  3
 #"Name of district" landpower fiscalpower col_index_201x col_index_202x col_index_distcouncil Nn n n Px,y,x,y,x,y
 E01_TsimShaTsWest  2 35 1 3 4 N0
 E02_KowloonStation 1 30 1 3 4 N-1
-E03_JordanWest
+E03_JordanWest     1 30 1 3 4
 E04_YauMaTeiSouth
 E05_Charming
 E06_MongKokWest
@@ -122,3 +133,29 @@ E17_EastTST&KngsP
 E18_JordanNorth
 E19_JordanSouth
 E20_TsimShaTsCent
+#Sham Shui Po District
+F01_PoLai        2 10 1 3 5
+F02_CheungShaWan 2 10 1 3 5 N-1
+F03_NamCheong_N
+F04_ShekKipMei
+F05_NamCheong_E
+F06_NamCheong_S
+F07_NamCheong_C
+F08_NamCheong_W
+F09_FuCheong
+F10_LaiKok
+F11_Fortune
+F12_PikWui
+F13_LaiChiKok_C
+F14_LaiChiKok_S
+F15_MeiFoo_S
+F16_MeiFoo_C
+F17_MeiFoo_N
+F18_LaiChiKok_N
+F19_UnChau
+F20_SoUk
+F21_LeiChengUk
+F22_LungPing&SPT
+F23_HaPakTin
+F24_YauYatTsuen
+F25_NmSn,THT&THS
