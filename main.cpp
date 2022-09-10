@@ -1,11 +1,10 @@
 #include "Districts.h" //<iostream> included there
 
 //Version of the game.
-#define GAME_VERSION "0.0.2022.2"
+#define GAME_VERSION "0.0.2022.9"
 
 int main() {
-    Colour* world_cols;
-    District** ds;
+    Colour* world_cols; District** ds;
     std::cout << "Great District Wars 2021\nby Justin Sham"
     << std::endl << "Version " << GAME_VERSION << std::endl <<
     "Please choose mode:" << std::endl
@@ -38,9 +37,10 @@ int main() {
     std::cout << "Choose colour number (starting from 0)";
     std::cin >> c_choice;
     Colour* c_this = Colour::choice(world_cols, c_choice, worlds); 
+    int day = 0;
     while (c_this->alive() && !District::united(ds, districts)) {
             District::display(ds, districts); //static void District::display(District**, int);
-            int day = 0;
+            
             std::string d_choice;
             std::cout << "Today is day " << day << ". Choose district code or number (starting from 0)";
             std::cin >> d_choice;
@@ -58,7 +58,7 @@ int main() {
                 break;
             }
             } while (movement != 'p' && movement != 'P');
-            
+            day++;
     }
     std::cout << "Game over. Hong Kong has been united." << std::endl; std::cin.get();
     return 0;
